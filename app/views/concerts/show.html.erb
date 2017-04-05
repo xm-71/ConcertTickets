@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @concert.name %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @concert.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @concert.end_date %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @concert.price %>
+</p>
+
+<p>
+  <strong>Tickets available:</strong>
+  <%= @concert.tickets_available %>
+</p>
+<p>
+  <strong>Venue:</strong>
+  <%= @concert.venue.name if @concert.venue %> |
+
+<% if current_user %>
+<% if current_user.has_role? :admin %>
+<td><%= link_to 'Venue Details', venue_path(@concert.venue) %></td>
+<% end %>
+<% end %>
+</p>
+
+<% if current_user %>
+<% if current_user.has_role? :admin %>
+<%= link_to 'Edit', edit_concert_path(@concert) %> |
+<%= link_to 'Back', concerts_path %>
+<% end %>
+<% end %>

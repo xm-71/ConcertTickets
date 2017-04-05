@@ -1,0 +1,50 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+
+  <div class="field">
+    <%= f.label :username %><br>
+    <%= f.text_field :username, :class =>"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email, :class =>"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password, :class =>"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation, :class =>"form-control" %>
+  </div>
+
+  <% if current_user %>
+  <% if current_user.has_role? :admin %>
+
+  <div class="field">
+    <% Role.all.each do |r|  %>
+    <%= check_box_tag "user[role_ids][]", r.id, @user.roles.include?(r)%>
+    <%= r.name %>
+    <% end %>
+  </div>
+
+  <%end%>
+  <%end%>
+
+</div>
+  <div class="actions">
+    <%= f.submit :class =>"btn btn-success btn-round" %>
+  </div>
+<% end %>

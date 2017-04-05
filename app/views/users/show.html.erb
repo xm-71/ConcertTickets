@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>User is in Roles:</strong>
+  <ul>
+  <% @user.roles.each do |r|%>
+    <li>
+    <%= r.name %>
+    </li>
+     <%end%>
+   </ul>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user),:class =>"btn btn-primary btn-round" %> |
+<%= link_to 'Back', users_path,:class =>"btn btn-primary btn-round" %>

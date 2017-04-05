@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ticket quantity:</strong>
+  <%= @purchase.ticket_quantity %>
+</p>
+
+<p>
+  <strong>Payment amount:</strong>
+  <%= @purchase.payment_amount %>
+</p>
+
+<%= link_to 'Edit', edit_purchase_path(@purchase) %> |
+<%= link_to 'Back', purchases_path %>
