@@ -13,6 +13,10 @@ Rails.application.routes.draw do
  get "login", :to => "user_sessions#new"
 get "logout", :to => "user_sessions#destroy"
 
+
+
+get 'concert_purchase/:concert_id/new' => 'purchases#new', as: :concert_purchase
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

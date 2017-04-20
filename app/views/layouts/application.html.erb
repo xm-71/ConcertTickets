@@ -25,25 +25,27 @@
 				<li><%= link_to("Home", root_url) %></li>
         <li> <%= link_to("Concerts", concerts_path) %> </li>
 
-          <% if current_user %>
-          <% if current_user.has_role? :admin %>
-            <li><%= link_to("Venues", venues_path) %> </li>
-          <% end %>
-          <% end %>
 
-          <% if current_user %>
-          <% if current_user.has_role? :admin %>
-            <li> <%= link_to("Users", users_path) %> </li>
-          <% end %>
-          <% end %>
+              <% if current_user %>
+              <% if current_user.has_role? :admin %>
+                <li><%= link_to("Venues", venues_path) %> </li>
+              <% end %>
+              <% end %>
 
-          <% if current_user %>
-            <li><%= link_to("Edit Profile", edit_user_path(current_user)) %> </li>
-            <li><%= link_to("Logout", logout_path) %> </li>
-          <% else %>
-            <li><%= link_to("Register", new_user_path) %> </li>
-            <li><%= link_to("Login", login_path) %> </li>
-          <% end %>
+              <% if current_user %>
+              <% if current_user.has_role? :admin %>
+                <li> <%= link_to("Users", users_path) %> </li>
+              <% end %>
+              <% end %>
+
+              <% if current_user %>
+                <li><%= link_to("View Purchases", purchases_path(current_user)) %></li>
+                <li><%= link_to("Edit Profile", edit_user_path(current_user)) %> </li>
+                <li><%= link_to("Logout", logout_path) %> </li>
+              <% else %>
+                <li><%= link_to("Register", new_user_path) %> </li>
+                <li><%= link_to("Login", login_path) %> </li>
+              <% end %>
             	</ul>
     	</div>
 	</div>

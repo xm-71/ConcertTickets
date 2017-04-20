@@ -1,10 +1,16 @@
 class PurchasesController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_purchase, only: [:show, :edit, :update, :destroy]
 
   # GET /purchases
   # GET /purchases.json
   def index
-    @purchases = Purchase.all
+    if current_user.has_role? :admin
+      @purchases = Purchase.all
+    else
+      @purchases = current_user.purchases
+    end
   end
 
   # GET /purchases/1
@@ -15,6 +21,7 @@ class PurchasesController < ApplicationController
   # GET /purchases/new
   def new
     @purchase = Purchase.new
+    @concert = Concert.find(params[:concert_id])
   end
 
   # GET /purchases/1/edit
@@ -25,11 +32,19 @@ class PurchasesController < ApplicationController
   # POST /purchases.json
   def create
     @purchase = Purchase.new(purchase_params)
-
+    @purchase.user = current_user
+    @purchase.concert_id = purchase_params[:concert_id]
+    @purchase.payment_amount = (@purchase.ticket_quantity * @purchase.payment_amount)
     respond_to do |format|
       if @purchase.save
+        if @purchase.make_transaction
         format.html { redirect_to @purchase, notice: 'Purchase was successfully created.' }
         format.json { render :show, status: :created, location: @purchase }
+      else
+        @concert = Concert.find(@purchase.concert_id)
+          @purchase.destroy
+          format.html { redirect_to @concert, :flash =>  { :error => 'Purchase failed.'} }
+        end
       else
         format.html { render :new }
         format.json { render json: @purchase.errors, status: :unprocessable_entity }
@@ -69,6 +84,6 @@ class PurchasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_params
-      params.require(:purchase).permit(:ticket_quantity, :payment_amount)
+      params.require(:purchase).permit(:ticket_quantity, :payment_amount, :response, :concert_id, :first_name, :last_name, :card_number, :card_expiry)
     end
 end

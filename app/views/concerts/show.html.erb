@@ -17,7 +17,7 @@
 
 <p>
   <strong>Price:</strong>
-  <%= @concert.price %>
+  <%= number_to_currency(@concert.price) %>
 </p>
 
 <p>
@@ -34,6 +34,16 @@
 <% end %>
 <% end %>
 </p>
+
+<% if current_user %>
+  <% if current_user.has_role? :customer %>
+    <p><%= link_to 'Purchase', concert_purchase_path(@concert.id), :class => "btn btn-primary" %></p>
+  <% end %>
+<% else %>
+  <p>
+  <strong>You must be registered and logged in to purchase tickets.</strong>
+  </p>
+<% end %>
 
 <% if current_user %>
 <% if current_user.has_role? :admin %>

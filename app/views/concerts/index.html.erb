@@ -21,14 +21,14 @@
         <td><%= concert.name %></td>
         <td><%= concert.start_date %></td>
         <td><%= concert.end_date %></td>
-        <td><%= concert.price %></td>
+        <td><%= number_to_currency(concert.price) %></td>
         <td><%= concert.tickets_available %></td>
 
         <td><%= concert.venue.name if concert.venue %></td>
 
           <% if current_user %>
           <% if current_user.has_role? :customer %>
-          <td><%= link_to 'Concert Details', concert %></td>
+          <td><%= link_to 'Concert Details', concert, :class=>"btn btn-info" %></td>
           <% end %>
           <% end %>
 

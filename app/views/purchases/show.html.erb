@@ -7,8 +7,16 @@
 
 <p>
   <strong>Payment amount:</strong>
-  <%= @purchase.payment_amount %>
+  <%= number_to_currency(@purchase.payment_amount) %>
 </p>
 
-<%= link_to 'Edit', edit_purchase_path(@purchase) %> |
+<p>
+  <strong>Response:</strong>
+  <%= @purchase.response %>
+</p>
+
 <%= link_to 'Back', purchases_path %>
+
+<% if can? :manage, @purchase %>
+<%= link_to 'Edit', edit_purchase_path(@purchase) %> |
+<% end %>

@@ -1,4 +1,7 @@
 class ConcertsController < ApplicationController
+
+
+  load_and_authorize_resource
   before_action :set_concert, only: [:show, :edit, :update, :destroy]
 
   # GET /concerts
@@ -69,6 +72,6 @@ class ConcertsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def concert_params
-      params.require(:concert).permit(:name, :start_date, :end_date, :price, :tickets_available, :venue_id)
+      params.require(:concert).permit(:name, :start_date, :end_date, :price, :tickets_available, :venue_id, :venue)
     end
 end
