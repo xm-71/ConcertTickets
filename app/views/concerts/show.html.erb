@@ -22,11 +22,15 @@
 
 <p>
   <strong>Tickets available:</strong>
-  <%= @concert.tickets_available %>
+  <%= @concert.tickets_remaining %>
 </p>
 <p>
   <strong>Venue:</strong>
   <%= @concert.venue.name if @concert.venue %> |
+
+  <% if @concert.tickets_remaining == 0 %>
+<p><strong>CONCERT SOLD OUT!</strong></p>
+<% else %>
 
 <% if current_user %>
 <% if current_user.has_role? :admin %>
@@ -49,5 +53,6 @@
 <% if current_user.has_role? :admin %>
 <%= link_to 'Edit', edit_concert_path(@concert) %> |
 <%= link_to 'Back', concerts_path %>
+<% end %>
 <% end %>
 <% end %>
