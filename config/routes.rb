@@ -17,6 +17,20 @@ get "logout", :to => "user_sessions#destroy"
 
 get 'concert_purchase/:concert_id/new' => 'purchases#new', as: :concert_purchase
 
+
+namespace :api, defaults: {format: 'json'} do
+  namespace :v1 do
+    get 'concerts', :to => 'concerts#index'
+    get 'concerts/:id', :to => 'concerts#show'
+  end
+end
+
+namespace :api, defaults: {format: 'json'} do
+  namespace :v1 do
+    get 'venues', :to => 'venues#index'
+    get 'venues/:id', :to => 'venues#show'
+  end
+end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
